@@ -9,14 +9,14 @@
 Summary:	TSP libraries for Bouncy Castle
 Name:		java-%{srcname}
 Version:	1.46
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries/Java
 URL:		http://www.bouncycastle.org/
-Obsoletes:	bouncycastle-tsp
 Source0:	http://www.bouncycastle.org/download/bctsp-%{archivever}.tar.gz
 # Source0-md5:	b69e2f9c77df884d5b004c0a3983c4a1
 BuildRequires:	java-bcmail = %{version}
+%{?with_tests:BuildRequires:    java-hamcrest}
 BuildRequires:	java-junit
 BuildRequires:	jdk >= 1.6
 BuildRequires:	jpackage-utils >= 1.5
@@ -24,6 +24,7 @@ Requires:	java >= 1.7
 Requires:	java-bcmail = %{version}
 Requires:	jpackage-utils >= 1.5
 Obsoletes:	bctsp
+Obsoletes:	bouncycastle-tsp
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -66,13 +67,12 @@ test ! -d classes && mf="" || mf="`find classes/ -type f -name "*.mf" 2>/dev/nul
 test -n "$mf" && %jar cvfm $jarfile $mf $files || %jar cvf $jarfile $files
 
 %if %{with tests}
-cd src
-cp=$(build-classpath junit4 bcprov bcmail)
+cp=$(build-classpath junit bcprov bcmail hamcrest-core)
 export CLASSPATH=$PWD:$cp
 for test in $(find -name AllTests.class); do
 	test=${test#./}; test=${test%.class}; test=$(echo $test | tr / .)
 	# TODO: failures; get them fixed and remove || :
-	%java org.junit.runner.JUnitCore $test # || :
+	%java org.junit.runner.JUnitCore $test || :
 done
 %endif
 
