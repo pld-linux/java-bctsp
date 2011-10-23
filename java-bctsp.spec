@@ -9,7 +9,7 @@
 Summary:	TSP libraries for Bouncy Castle
 Name:		java-%{srcname}
 Version:	1.46
-Release:	2
+Release:	3
 License:	MIT
 Group:		Libraries/Java
 URL:		http://www.bouncycastle.org/
@@ -20,7 +20,6 @@ BuildRequires:	java-bcmail = %{version}
 BuildRequires:	java-junit
 BuildRequires:	jdk >= 1.6
 BuildRequires:	jpackage-utils >= 1.5
-Requires:	java >= 1.7
 Requires:	java-bcmail = %{version}
 Requires:	jpackage-utils >= 1.5
 Obsoletes:	bctsp
