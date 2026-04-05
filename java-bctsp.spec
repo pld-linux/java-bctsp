@@ -10,7 +10,7 @@
 Summary:	TSP libraries for Bouncy Castle
 Name:		java-%{srcname}
 Version:	1.46
-Release:	5
+Release:	6
 License:	MIT
 Group:		Libraries/Java
 URL:		http://www.bouncycastle.org/
@@ -59,7 +59,7 @@ cd src
 
 CLASSPATH=$(build-classpath bcprov bcmail junit)
 export CLASSPATH
-%javac -g -target 1.5 -encoding UTF-8 $(find -type f -name "*.java")
+%javac -g -source 1.5 -target 1.5 -encoding UTF-8 $(find -type f -name "*.java")
 
 jarfile="../bctsp-%{version}.jar"
 # Exclude all */test/*, cf. upstream
